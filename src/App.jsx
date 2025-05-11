@@ -8,6 +8,7 @@ import Poli from "./pages/Poli";
 import Patients from "./pages/Patients";
 import Reservations from "./pages/Reservations";
 import PrintQueue from "./pages/PrintQueue";
+import Print from "./pages/Print";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="poli" element={<Poli />} />
           <Route path="patients" element={<Patients />} />
           <Route path="reservations" element={<Reservations />} />
+          <Route path="print" element={<Print />} />
           <Route path="print/:id" element={<PrintQueue />} />
         </Route>
       </Routes>

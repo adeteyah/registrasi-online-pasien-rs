@@ -11,6 +11,7 @@ import {
 } from "../components/Input";
 
 import { getToday, getTodayOffsetDate } from "../utils/time";
+import { GridX, GridY } from "../components/Grid";
 
 function Registration() {
   const [formData, setFormData] = useState({
@@ -28,6 +29,8 @@ function Registration() {
     tipePembayaran: "",
   });
 
+  const [step, setStep] = useState(1);
+
   const [poli, setPoli] = useState([]);
   const [dokter, setDokter] = useState([]);
   const [variables, setVariables] = useState({
@@ -37,25 +40,24 @@ function Registration() {
   });
   const [reservasi, setReservasi] = useState([]);
 
+  const isFormComplete = () => {
+    return Object.values(formData).every((val) => val !== "");
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [
-          poliResponse,
-          dokterResponse,
-          variablesResponse,
-          reservasiResponse,
-        ] = await Promise.all([
+        const [poliRes, dokterRes, varsRes, reservasiRes] = await Promise.all([
           axios.get(`${serverUrl}/poli`),
           axios.get(`${serverUrl}/dokter`),
           axios.get(`${serverUrl}/variables`),
           axios.get(`${serverUrl}/reservasi`),
         ]);
 
-        setPoli(poliResponse.data);
-        setDokter(dokterResponse.data);
-        setVariables(variablesResponse.data);
-        setReservasi(reservasiResponse.data);
+        setPoli(poliRes.data);
+        setDokter(dokterRes.data);
+        setVariables(varsRes.data);
+        setReservasi(reservasiRes.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -92,10 +94,9 @@ function Registration() {
 
     try {
       await axios.post(`${serverUrl}/pasien`, newPasien);
-
       await axios.post(`${serverUrl}/reservasi`, newReservasi);
-
       console.log("Data successfully added!");
+
       setFormData({
         nik: "",
         namaLengkap: "",
@@ -110,105 +111,148 @@ function Registration() {
         dokter: "",
         tipePembayaran: "",
       });
+
+      setStep(1);
     } catch (error) {
       console.error("Error inserting data:", error);
     }
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div className="flex items-start">
-          <div className="grid">
-            <Biodata
-              formData={formData}
-              onChange={handleChange}
-              variables={variables}
-            />
-          </div>
-          <div className="grid">
-            <Reservasi
-              formData={formData}
-              onChange={handleChange}
-              poli={poli}
-              dokter={dokter}
-              variables={variables}
-              reservasi={reservasi}
-            />
-          </div>
-        </div>
-        <div>
-          <Button type="submit" text="Daftar" />
-        </div>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      {step === 1 && (
+        <>
+          <h3 className="text-lg font-semibold mb-4">Formulir Biodata</h3>
+          <Biodata
+            formData={formData}
+            onChange={handleChange}
+            variables={variables}
+          />
+        </>
+      )}
+      {step === 2 && (
+        <>
+          <h3 className="text-lg font-semibold mb-4">Reservasi</h3>
+          <Reservasi
+            formData={formData}
+            onChange={handleChange}
+            poli={poli}
+            dokter={dokter}
+            variables={variables}
+            reservasi={reservasi}
+          />
+        </>
+      )}
+      {step === 3 && (
+        <>
+          <h3 className="text-lg font-semibold mb-4">Konfirmasi</h3>
+          <Konfirmasi formData={formData} />
+        </>
+      )}
+
+      <div className="flex justify-between gap-2.5 my-5">
+        {step > 1 && (
+          <Button
+            text="Back"
+            onClick={() => setStep(step - 1)}
+            type="button"
+            variant="outlined"
+          />
+        )}
+        {step < 3 && (
+          <Button
+            text="Next"
+            onClick={() => setStep(step + 1)}
+            type="button"
+            variant="outlined"
+          />
+        )}
+        {step === 3 && (
+          <Button type="submit" text="Daftar" disabled={!isFormComplete()} />
+        )}
+      </div>
+    </form>
   );
 }
 
 function Biodata({ formData, onChange, variables }) {
   return (
-    <>
-      <Label label="NIK" htmlFor="nik" />
-      <InputText
-        placeholder="Nomor KTP"
-        htmlFor="nik"
-        value={formData.nik}
-        onChange={(e) => onChange("nik", e.target.value)}
-      />
+    <GridX>
+      <GridY>
+        <Label label="NIK" htmlFor="nik" />
+        <InputText
+          placeholder="Nomor KTP"
+          htmlFor="nik"
+          value={formData.nik}
+          onChange={(e) => onChange("nik", e.target.value)}
+        />
+      </GridY>
 
-      <Label label="Nama Lengkap Pasien" htmlFor="namaLengkap" />
-      <InputText
-        placeholder="Contoh: Budi Santoso"
-        htmlFor="namaLengkap"
-        value={formData.namaLengkap}
-        onChange={(e) => onChange("namaLengkap", e.target.value)}
-      />
+      <GridY>
+        <Label label="Nama Lengkap Pasien" htmlFor="namaLengkap" />
+        <InputText
+          placeholder="Contoh: Budi Santoso"
+          htmlFor="namaLengkap"
+          value={formData.namaLengkap}
+          onChange={(e) => onChange("namaLengkap", e.target.value)}
+        />
+      </GridY>
 
-      <Label label="Tempat Lahir" htmlFor="tempatLahir" />
-      <InputText
-        placeholder="Contoh: Bandung"
-        htmlFor="tempatLahir"
-        value={formData.tempatLahir}
-        onChange={(e) => onChange("tempatLahir", e.target.value)}
-      />
+      <GridY>
+        <Label label="Tempat Lahir" htmlFor="tempatLahir" />
+        <InputText
+          placeholder="Contoh: Bandung"
+          htmlFor="tempatLahir"
+          value={formData.tempatLahir}
+          onChange={(e) => onChange("tempatLahir", e.target.value)}
+        />
+      </GridY>
 
-      <Label label="Tanggal Lahir" htmlFor="tanggalLahir" />
-      <InputDate
-        min={getTodayOffsetDate(-45625)}
-        max={getToday()}
-        step="1"
-        htmlFor="tanggalLahir"
-        value={formData.tanggalLahir}
-        onChange={(e) => onChange("tanggalLahir", e.target.value)}
-      />
+      <GridY>
+        <Label label="Tanggal Lahir" htmlFor="tanggalLahir" />
+        <InputDate
+          min={getTodayOffsetDate(-45625)}
+          max={getToday()}
+          step="1"
+          htmlFor="tanggalLahir"
+          value={formData.tanggalLahir}
+          onChange={(e) => onChange("tanggalLahir", e.target.value)}
+        />
+      </GridY>
 
-      <Label label="Jenis Kelamin" />
-      <InputSelect
-        name="jenisKelamin"
-        options={variables.jenisKelamin.map((jenisKelamin) => ({
-          label: jenisKelamin,
-          value: jenisKelamin,
-        }))}
-        value={formData.jenisKelamin}
-        onChange={(e) => onChange("jenisKelamin", e.target.value)}
-      />
+      <GridY>
+        <Label label="Jenis Kelamin" />
+        <InputSelect
+          name="jenisKelamin"
+          options={variables.jenisKelamin.map((jenisKelamin) => ({
+            label: jenisKelamin,
+            value: jenisKelamin,
+          }))}
+          value={formData.jenisKelamin}
+          onChange={(e) => onChange("jenisKelamin", e.target.value)}
+        />
+      </GridY>
 
-      <Label label="Nomor Telepon" htmlFor="nomorTelepon" />
-      <InputNumber
-        placeholder="Contoh: 08XXXXXXXXXX"
-        htmlFor="nomorTelepon"
-        value={formData.nomorTelepon}
-        onChange={(e) => onChange("nomorTelepon", e.target.value)}
-      />
+      <GridY>
+        <Label label="Nomor Telepon" htmlFor="nomorTelepon" />
+        <InputNumber
+          placeholder="Contoh: 08XXXXXXXXXX"
+          htmlFor="nomorTelepon"
+          value={formData.nomorTelepon}
+          onChange={(e) => onChange("nomorTelepon", e.target.value)}
+        />
+      </GridY>
 
-      <Label label="Alamat" htmlFor="alamat" />
-      <InputText
-        placeholder="Sesuai KTP"
-        htmlFor="alamat"
-        value={formData.alamat}
-        onChange={(e) => onChange("alamat", e.target.value)}
-      />
-    </>
+      <GridY>
+        <Label label="Alamat" htmlFor="alamat" />
+        <InputText
+          placeholder="Sesuai KTP"
+          htmlFor="alamat"
+          value={formData.alamat}
+          onChange={(e) => onChange("alamat", e.target.value)}
+        />
+      </GridY>
+    </GridX>
   );
 }
 
@@ -233,65 +277,89 @@ function Reservasi({ formData, onChange, poli, dokter, variables, reservasi }) {
     }));
 
   return (
-    <>
-      <Label label="Poli" />
-      <InputSelect
-        name="poli"
-        options={poli.map((item) => ({
-          label: item.poli,
-          value: item.id,
-        }))}
-        placeholder="Poli"
-        value={formData.poli}
-        onChange={(e) => {
-          onChange("poli", e.target.value);
-          onChange("dokter", "");
-        }}
-      />
-
-      <Label label="Dokter" />
-      <InputSelect
-        name="dokter"
-        options={filteredDokter.map((item) => ({
-          label: item.nama,
-          value: item.id,
-        }))}
-        placeholder="Dokter"
-        value={formData.dokter}
-        onChange={(e) => onChange("dokter", e.target.value)}
-      />
-
-      <Label label="Tanggal Reservasi" htmlFor="tanggalReservasi" />
-      <InputDate
-        min={getToday()}
-        max={getTodayOffsetDate(7)}
-        htmlFor="tanggalReservasi"
-        value={formData.tanggalReservasi}
-        onChange={(e) => onChange("tanggalReservasi", e.target.value)}
-      />
-
-      <Label label="Jam" />
-      <InputSelect
-        name="jam"
-        options={availableJamOptions}
-        placeholder="Jam"
-        value={formData.jam}
-        onChange={(e) => onChange("jam", e.target.value)}
-      />
-
-      <Label label="Tipe Pembayaran" />
-      <InputSelect
-        placeholder="Tipe Pembayaran"
-        name="tipePembayaran"
-        options={variables.tipePembayaran.map((tipePembayaran) => ({
-          label: tipePembayaran,
-          value: tipePembayaran,
-        }))}
-        value={formData.tipePembayaran}
-        onChange={(e) => onChange("tipePembayaran", e.target.value)}
-      />
-    </>
+    <GridX>
+      <GridY>
+        <Label label="Poli" />
+        <InputSelect
+          name="poli"
+          options={poli.map((item) => ({
+            label: item.poli,
+            value: item.id,
+          }))}
+          placeholder="Poli"
+          value={formData.poli}
+          onChange={(e) => {
+            onChange("poli", e.target.value);
+            onChange("dokter", "");
+          }}
+        />
+      </GridY>
+      <GridY>
+        <Label label="Dokter" />
+        <InputSelect
+          name="dokter"
+          options={filteredDokter.map((item) => ({
+            label: item.nama,
+            value: item.id,
+          }))}
+          placeholder="Dokter"
+          value={formData.dokter}
+          onChange={(e) => onChange("dokter", e.target.value)}
+        />
+      </GridY>
+      <GridY>
+        <Label label="Tanggal Reservasi" htmlFor="tanggalReservasi" />
+        <InputDate
+          min={getToday()}
+          max={getTodayOffsetDate(7)}
+          htmlFor="tanggalReservasi"
+          value={formData.tanggalReservasi}
+          onChange={(e) => onChange("tanggalReservasi", e.target.value)}
+        />
+      </GridY>
+      <GridY>
+        <Label label="Jam" />
+        <InputSelect
+          name="jam"
+          options={availableJamOptions}
+          placeholder="Jam"
+          value={formData.jam}
+          onChange={(e) => onChange("jam", e.target.value)}
+        />
+      </GridY>
+      <GridY>
+        <Label label="Tipe Pembayaran" />
+        <InputSelect
+          placeholder="Tipe Pembayaran"
+          name="tipePembayaran"
+          options={variables.tipePembayaran.map((tipePembayaran) => ({
+            label: tipePembayaran,
+            value: tipePembayaran,
+          }))}
+          value={formData.tipePembayaran}
+          onChange={(e) => onChange("tipePembayaran", e.target.value)}
+        />
+      </GridY>
+    </GridX>
   );
+}
+
+function Konfirmasi({ formData }) {
+  return (
+    <ul className="space-y-2">
+      {Object.entries(formData).map(([key, value]) => (
+        <li key={key}>
+          <strong>{formatLabel(key)}:</strong> {value}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function formatLabel(label) {
+  return label
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, (str) => str.toUpperCase());
 }
 
 export default Registration;

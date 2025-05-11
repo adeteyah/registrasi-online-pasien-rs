@@ -67,8 +67,6 @@ function Reservasi() {
 
   return (
     <div>
-      <h2>Daftar Reservasi</h2>
-
       <input
         type="text"
         placeholder="Cari berdasarkan NIK..."
