@@ -1,0 +1,130 @@
+{
+  "dokter": [
+    {
+      "id": "Dokter-1",
+      "nama": "Dr. Andi",
+      "poli": [
+        "Poli-1"
+      ]
+    },
+    {
+      "id": "Dokter-2",
+      "nama": "Dr. Budi",
+      "poli": [
+        "Poli-2"
+      ]
+    },
+    {
+      "id": "Dokter-3",
+      "nama": "Dr. Citra",
+      "poli": [
+        "Poli-3",
+        "Poli-4"
+      ]
+    },
+    {
+      "id": "Dokter-4",
+      "nama": "Dr. Dedi",
+      "poli": [
+        "Poli-5"
+      ]
+    },
+    {
+      "id": "Dokter-5",
+      "nama": "Dr. Eka",
+      "poli": [
+        "Poli-1",
+        "Poli-2"
+      ]
+    },
+    {
+      "id": "Dokter-6",
+      "nama": "Dr. Fani",
+      "poli": [
+        "Poli-3"
+      ]
+    },
+    {
+      "id": "Dokter-7",
+      "nama": "Dr. Gita",
+      "poli": [
+        "Poli-4",
+        "Poli-5"
+      ]
+    },
+    {
+      "id": "Dokter-8",
+      "nama": "Dr. Hadi",
+      "poli": [
+        "Poli-1",
+        "Poli-3",
+        "Poli-4"
+      ]
+    }
+  ],
+  "pasien": [
+    {
+      "id": "6e77",
+      "nik": "08887222",
+      "namaLengkap": "Kaka",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "2025-05-06",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "08761526374",
+      "alamat": "Bandung"
+    }
+  ],
+  "poli": [
+    {
+      "id": "Poli-1",
+      "poli": "Poli Umum"
+    },
+    {
+      "id": "Poli-2",
+      "poli": "Poli Gigi"
+    },
+    {
+      "id": "Poli-3",
+      "poli": "Poli Kandungan"
+    },
+    {
+      "id": "Poli-4",
+      "poli": "Poli Anak"
+    },
+    {
+      "id": "Poli-5",
+      "poli": "Poli THT"
+    }
+  ],
+  "reservasi": [
+    {
+      "id": "c9fc",
+      "nik": "08887222",
+      "tanggalReservasi": "2025-05-12",
+      "jam": "08:00",
+      "poli": "Poli-2",
+      "dokter": "Dokter-2",
+      "tipePembayaran": "Umum"
+    }
+  ],
+  "variables": {
+    "jam": [
+      "08:00",
+      "08:30",
+      "09:00",
+      "09:30",
+      "10:00",
+      "10:30"
+    ],
+    "tipePembayaran": [
+      "Umum",
+      "Asuransi",
+      "BPJS"
+    ],
+    "jenisKelamin": [
+      "Pria",
+      "Wanita",
+      "Tidak Bisa Disebutkan"
+    ]
+  }
+}
