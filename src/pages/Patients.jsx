@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { serverUrl } from "../constants/global";
 
 function Patients() {
   const [items, setItems] = useState([]);
@@ -8,7 +9,7 @@ function Patients() {
   const itemsPerPage = 2;
 
   useEffect(() => {
-    fetch("http://localhost:3030/pasien")
+    fetch(`${serverUrl}/pasien`)
       .then((response) => response.json())
       .then((data) => {
         setItems(data);

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { serverUrl } from "../constants/global";
 
 function Doctors() {
   const [doctors, setDoctors] = useState([]);
@@ -12,8 +13,8 @@ function Doctors() {
     const fetchData = async () => {
       try {
         const [doctorData, poliData] = await Promise.all([
-          fetch("http://localhost:3030/dokter").then((res) => res.json()),
-          fetch("http://localhost:3030/poli").then((res) => res.json()),
+          fetch(`${serverUrl}/dokter`).then((res) => res.json()),
+          fetch(`${serverUrl}/poli`).then((res) => res.json()),
         ]);
 
         setDoctors(doctorData);

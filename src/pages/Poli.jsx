@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { serverUrl } from "../constants/global";
 
 function Poli() {
   const [items, setItems] = useState([]);
@@ -8,7 +9,7 @@ function Poli() {
   const itemsPerPage = 4;
 
   useEffect(() => {
-    fetch("http://localhost:3030/poli")
+    fetch(`${serverUrl}/poli`)
       .then((response) => response.json())
       .then((data) => {
         setItems(data);

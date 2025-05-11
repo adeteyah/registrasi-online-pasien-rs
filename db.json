@@ -72,6 +72,16 @@
       "jenisKelamin": "Pria",
       "nomorTelepon": "08761526374",
       "alamat": "Bandung"
+    },
+    {
+      "id": "50f3",
+      "nik": "3387123813257812",
+      "namaLengkap": "Mohammad Aditiya Rachman",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "2025-05-01",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "085156012239",
+      "alamat": "Jl Manisi Lio Utara no.72 RT2 RW9 Cipadung Cibiru"
     }
   ],
   "poli": [
@@ -104,6 +114,15 @@
       "jam": "08:00",
       "poli": "Poli-2",
       "dokter": "Dokter-2",
+      "tipePembayaran": "Umum"
+    },
+    {
+      "id": "d8c1",
+      "nik": "3387123813257812",
+      "tanggalReservasi": "2025-05-15",
+      "jam": "08:00",
+      "poli": "Poli-1",
+      "dokter": "Dokter-1",
       "tipePembayaran": "Umum"
     }
   ],

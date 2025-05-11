@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Import Link for navigation
-import PrintQueue from "./PrintQueue";
+import { Link } from "react-router-dom";
+import { serverUrl } from "../constants/global";
 
 function Reservasi() {
   const [reservations, setReservations] = useState([]);
@@ -16,10 +16,10 @@ function Reservasi() {
     const fetchData = async () => {
       try {
         const [resRes, resPat, resPoli, resDoc] = await Promise.all([
-          fetch("http://localhost:3030/reservasi").then((res) => res.json()),
-          fetch("http://localhost:3030/pasien").then((res) => res.json()),
-          fetch("http://localhost:3030/poli").then((res) => res.json()),
-          fetch("http://localhost:3030/dokter").then((res) => res.json()),
+          fetch(`${serverUrl}/reservasi`).then((res) => res.json()),
+          fetch(`${serverUrl}/pasien`).then((res) => res.json()),
+          fetch(`${serverUrl}/poli`).then((res) => res.json()),
+          fetch(`${serverUrl}/dokter`).then((res) => res.json()),
         ]);
 
         setReservations(resRes);

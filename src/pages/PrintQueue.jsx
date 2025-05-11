@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { serverUrl } from "../constants/global";
 
 function PrintQueue() {
   const { id } = useParams();
@@ -9,7 +10,7 @@ function PrintQueue() {
   useEffect(() => {
     const fetchReservation = async () => {
       try {
-        const response = await fetch(`http://localhost:3030/reservasi/${id}`);
+        const response = await fetch(`${serverUrl}/reservasi/${id}`);
         const data = await response.json();
         setReservation(data);
         setLoading(false);

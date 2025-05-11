@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "../components/Button";
+import { serverUrl } from "../constants/global";
 import {
   InputText,
   InputSelect,
@@ -45,10 +46,10 @@ function Registration() {
           variablesResponse,
           reservasiResponse,
         ] = await Promise.all([
-          axios.get("http://localhost:3030/poli"),
-          axios.get("http://localhost:3030/dokter"),
-          axios.get("http://localhost:3030/variables"),
-          axios.get("http://localhost:3030/reservasi"),
+          axios.get(`${serverUrl}/poli`),
+          axios.get(`${serverUrl}/dokter`),
+          axios.get(`${serverUrl}/variables`),
+          axios.get(`${serverUrl}/reservasi`),
         ]);
 
         setPoli(poliResponse.data);
@@ -90,9 +91,9 @@ function Registration() {
     };
 
     try {
-      await axios.post("http://localhost:3030/pasien", newPasien);
+      await axios.post(`${serverUrl}/pasien`, newPasien);
 
-      await axios.post("http://localhost:3030/reservasi", newReservasi);
+      await axios.post(`${serverUrl}/reservasi`, newReservasi);
 
       console.log("Data successfully added!");
       setFormData({
@@ -117,7 +118,7 @@ function Registration() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+        <div className="flex items-start">
           <div className="grid">
             <Biodata
               formData={formData}
@@ -137,7 +138,6 @@ function Registration() {
           </div>
         </div>
         <div>
-          <Button type="reset" text="Reset" />
           <Button type="submit" text="Daftar" />
         </div>
       </form>
