@@ -1,102 +1,106 @@
 import { useEffect, useState } from "react";
 import { serverUrl } from "../constants/global";
+import Button from "../components/Button";
+import Table from "../components/Table";
+import { GridY } from "../components/Grid";
 
+// Komponen utama untuk menampilkan daftar dokter
 function Doctors() {
+  // State untuk menyimpan data dokter
   const [doctors, setDoctors] = useState([]);
-  const [polisi, setPolisi] = useState([]); // State to hold Poli data
+  // State untuk menyimpan data poli
+  const [polisi, setPolisi] = useState([]);
+  // State untuk menandakan apakah data sedang dimuat
   const [loading, setLoading] = useState(true);
+  // State untuk menyimpan nilai pencarian
   const [search, setSearch] = useState("");
+  // State untuk menyimpan halaman aktif
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
+  const itemsPerPage = 10; // Jumlah data per halaman
 
+  // Ambil data dokter dan poli dari server menggunakan useEffect
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Mengambil data dokter dan poli secara bersamaan dengan Promise.all
         const [doctorData, poliData] = await Promise.all([
           fetch(`${serverUrl}/dokter`).then((res) => res.json()),
           fetch(`${serverUrl}/poli`).then((res) => res.json()),
         ]);
 
-        setDoctors(doctorData);
-        setPolisi(poliData); // Store poli data
-        setLoading(false);
+        setDoctors(doctorData); // Menyimpan data dokter ke state
+        setPolisi(poliData); // Menyimpan data poli ke state
+        setLoading(false); // Menghentikan loading
       } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
+        console.error("Error fetching data:", error); // Menangani error
+        setLoading(false); // Menghentikan loading meskipun gagal
       }
     };
 
-    fetchData();
-  }, []);
+    fetchData(); // Memanggil fungsi fetchData
+  }, []); // Hanya dijalankan sekali saat komponen pertama kali dimuat
 
-  // Lookup functions
+  // Fungsi untuk mendapatkan nama poli berdasarkan ID poli
   const getPoliName = (poliId) =>
-    polisi.find((poli) => poli.id === poliId)?.poli || poliId; // Match poli name
+    polisi.find((poli) => poli.id === poliId)?.poli || poliId;
 
+  // Menyaring data dokter berdasarkan nama yang dimasukkan dalam pencarian
   const filteredDoctors = doctors.filter((doctor) =>
     doctor.nama.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Logika pagination untuk menampilkan data per halaman
   const indexOfLastDoctor = currentPage * itemsPerPage;
   const indexOfFirstDoctor = indexOfLastDoctor - itemsPerPage;
   const currentDoctors = filteredDoctors.slice(
     indexOfFirstDoctor,
     indexOfLastDoctor
   );
-  const totalPages = Math.ceil(filteredDoctors.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredDoctors.length / itemsPerPage); // Menghitung total halaman
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
-
-  const handlePrevPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
+  // Jika data masih dimuat, tampilkan pesan loading
   if (loading) return <p>Loading data...</p>;
 
   return (
-    <div>
-      <h2>Doctor List</h2>
-
+    <GridY>
+      {/* Input pencarian untuk mencari nama dokter */}
       <input
         type="text"
         placeholder="Search by doctor name..."
         value={search}
         onChange={(e) => {
-          setSearch(e.target.value);
-          setCurrentPage(1);
+          setSearch(e.target.value); // Update nilai pencarian
+          setCurrentPage(1); // Reset ke halaman pertama
         }}
       />
 
-      <ul>
-        {currentDoctors.map((doctor) => (
-          <li key={doctor.id}>
-            <strong>{doctor.nama}</strong>
-            <br />
-            <strong>Poli: </strong>
-            {doctor.poli.map((poliId, index) => (
-              <span key={index}>
-                {getPoliName(poliId)}
-                {index < doctor.poli.length - 1 ? ", " : ""}
-              </span>
-            ))}
-          </li>
-        ))}
-      </ul>
+      {/* Tampilkan tabel data dokter */}
+      <Table
+        columns={[
+          { header: "Nama Dokter", accessor: "nama" }, // Kolom nama dokter
+          {
+            header: "Poli", // Kolom poli
+            render: (doctor) =>
+              doctor.poli.map((poliId) => getPoliName(poliId)).join(", "), // Menampilkan nama poli berdasarkan ID
+          },
+        ]}
+        data={currentDoctors} // Data yang akan ditampilkan pada halaman ini
+        variant="same-width" // Menentukan lebar kolom yang sama
+      />
 
-      <div>
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Prev
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-          Next
-        </button>
+      {/* Navigasi untuk memilih halaman */}
+      <div className="flex items-center justify-center gap-2">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <Button
+            key={index}
+            text={(index + 1).toString()} // Menampilkan nomor halaman
+            onClick={() => setCurrentPage(index + 1)} // Navigasi ke halaman yang dipilih
+            variant={currentPage === index + 1 ? "solid" : "outlined"} // Menyorot halaman yang sedang aktif
+            color="zinc"
+          />
+        ))}
       </div>
-    </div>
+    </GridY>
   );
 }
 

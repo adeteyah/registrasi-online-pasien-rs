@@ -1,68 +1,130 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { serverUrl } from "../constants/global";
+import Button from "../components/Button";
+import { GridY } from "../components/Grid";
 
+// Komponen utama untuk halaman cetak antrian reservasi
 function PrintQueue() {
-  const { id } = useParams();
-  const [reservation, setReservation] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { id } = useParams(); // Mengambil parameter `id` dari URL
+  const [reservation, setReservation] = useState(null); // Menyimpan data reservasi
+  const [loading, setLoading] = useState(true); // Status loading
+  const [notFound, setNotFound] = useState(false); // Status jika data tidak ditemukan
+  const [polis, setPolis] = useState([]); // Data poli
+  const [dokters, setDokters] = useState([]); // Data dokter
+  const navigate = useNavigate(); // Hook untuk navigasi
 
+  // Ambil data reservasi, poli, dan dokter
   useEffect(() => {
     const fetchReservation = async () => {
       try {
+        // Mengambil data reservasi berdasarkan ID dari server
         const response = await fetch(`${serverUrl}/reservasi/${id}`);
+        if (!response.ok) {
+          setNotFound(true);
+          setLoading(false);
+          return;
+        }
         const data = await response.json();
-        setReservation(data);
+        if (!data || Object.keys(data).length === 0) {
+          setNotFound(true);
+        } else {
+          setReservation(data); // Simpan data jika ditemukan
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching reservation:", error);
+        setNotFound(true);
         setLoading(false);
       }
     };
 
+    // Ambil data poli dan dokter juga
+    const fetchMaster = async () => {
+      try {
+        const [poliRes, dokterRes] = await Promise.all([
+          fetch(`${serverUrl}/poli`).then((res) => res.json()),
+          fetch(`${serverUrl}/dokter`).then((res) => res.json()),
+        ]);
+        setPolis(poliRes);
+        setDokters(dokterRes);
+      } catch (error) {
+        // Jika gagal, biarkan kosong
+      }
+    };
+
     fetchReservation();
+    fetchMaster();
   }, [id]);
 
-  const handlePrint = () => {
-    const printArea = document.getElementById("print-area");
-    const originalContent = document.body.innerHTML;
-
-    document.body.innerHTML = printArea.innerHTML;
-
-    window.print();
-
-    document.body.innerHTML = originalContent;
-    window.location.reload();
+  // Fungsi untuk mendapatkan label dari id poli/dokter
+  const getLabel = (value, dataArray, labelKey) => {
+    if (!dataArray || dataArray.length === 0) return value;
+    const found = dataArray.find((item) => item.id === value);
+    return found ? found[labelKey] : value;
   };
 
+  // Fungsi untuk mencetak area tertentu dari halaman
+  const handlePrint = () => {
+    const printArea = document.getElementById("print-area"); // Ambil elemen yang akan dicetak
+    const originalContent = document.body.innerHTML; // Simpan isi halaman asli
+
+    document.body.innerHTML = printArea.innerHTML; // Ganti isi halaman dengan area cetak
+    window.print(); // Jalankan perintah cetak
+    document.body.innerHTML = originalContent; // Kembalikan isi halaman
+    window.location.reload(); // Reload halaman agar normal kembali
+  };
+
+  // Tampilkan loading jika data masih dimuat
   if (loading) return <p>Loading reservation...</p>;
 
-  return (
-    <div>
-      <h2>Print Reservation</h2>
-      <div id="print-area" className="print-area">
-        <h3>Detail Reservasi</h3>
-        <p>
-          <strong>NIK:</strong> {reservation.nik}
-        </p>
-        <p>
-          <strong>Tanggal:</strong> {reservation.tanggalReservasi}
-        </p>
-        <p>
-          <strong>Jam:</strong> {reservation.jam}
-        </p>
-        <p>
-          <strong>Poli:</strong> {reservation.poli}
-        </p>
-        <p>
-          <strong>Dokter:</strong> {reservation.dokter}
-        </p>
-        <p>
-          <strong>Pembayaran:</strong> {reservation.tipePembayaran}
-        </p>
-      </div>
-      <button onClick={handlePrint}>Print</button>
+  // Jika data tidak ditemukan, tampilkan pesan dan tombol kembali
+  if (notFound)
+    return (
+      <GridY>
+        <div className="p-8 rounded-xl outline outline-zinc-200 shadow shadow-zinc-200">
+          <h3 className="text-2xl font-semibold">Data tidak ditemukan</h3>
+        </div>
+        <Button text="Kembali" onClick={() => navigate("/print")} />
+      </GridY>
+    );
 
+  // Jika data ditemukan, tampilkan detail reservasi
+  return (
+    <div className="p-8 rounded-xl outline outline-zinc-200 shadow shadow-zinc-200">
+      <GridY>
+        <h3 className="text-2xl font-semibold">Detail Reservasi</h3>
+
+        {/* Area yang akan dicetak */}
+        <div id="print-area" className="print-area">
+          <p>
+            <strong>NIK:</strong> {reservation.nik}
+          </p>
+          <p>
+            <strong>Tanggal:</strong> {reservation.tanggalReservasi}
+          </p>
+          <p>
+            <strong>Jam:</strong> {reservation.jam}
+          </p>
+          <p>
+            <strong>Poli:</strong> {getLabel(reservation.poli, polis, "poli")}
+          </p>
+          <p>
+            <strong>Dokter:</strong>{" "}
+            {getLabel(reservation.dokter, dokters, "nama")}
+          </p>
+          <p>
+            <strong>Pembayaran:</strong> {reservation.tipePembayaran}
+          </p>
+        </div>
+
+        {/* Tombol untuk mencetak */}
+        <div className="grid">
+          <Button onClick={handlePrint} text="Print" />
+        </div>
+      </GridY>
+
+      {/* CSS khusus untuk mode cetak */}
       <style>
         {`
           @media print {
@@ -77,7 +139,7 @@ function PrintQueue() {
             }
 
             .print-area {
-              width: 80mm; /* Set width to resemble a receipt */
+              width: 80mm;
               padding: 10mm;
               font-family: Arial, sans-serif;
               font-size: 12px;
@@ -95,7 +157,7 @@ function PrintQueue() {
             }
 
             button {
-              display: none; /* Hide buttons during print */
+              display: none;
             }
           }
         `}
@@ -104,4 +166,5 @@ function PrintQueue() {
   );
 }
 
+// Export komponen agar bisa digunakan di tempat lain
 export default PrintQueue;

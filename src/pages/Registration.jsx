@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Button } from "../components/Button";
+import Button from "../components/Button";
 import { serverUrl } from "../constants/global";
+import Table from "../components/Table";
 import {
   InputText,
   InputSelect,
@@ -9,11 +10,12 @@ import {
   InputNumber,
   Label,
 } from "../components/Input";
-
 import { getToday, getTodayOffsetDate } from "../utils/time";
 import { GridX, GridY } from "../components/Grid";
 
+// Komponen utama untuk halaman registrasi pasien dengan multi-step form
 function Registration() {
+  // State untuk menyimpan data form
   const [formData, setFormData] = useState({
     nik: "",
     namaLengkap: "",
@@ -29,8 +31,10 @@ function Registration() {
     tipePembayaran: "",
   });
 
+  // State untuk melacak langkah/form step saat ini
   const [step, setStep] = useState(1);
 
+  // State untuk data master dari API
   const [poli, setPoli] = useState([]);
   const [dokter, setDokter] = useState([]);
   const [variables, setVariables] = useState({
@@ -40,10 +44,12 @@ function Registration() {
   });
   const [reservasi, setReservasi] = useState([]);
 
+  // Fungsi untuk mengecek apakah semua field form sudah terisi
   const isFormComplete = () => {
     return Object.values(formData).every((val) => val !== "");
   };
 
+  // Ambil data master dari API saat komponen pertama kali dirender
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -59,17 +65,19 @@ function Registration() {
         setVariables(varsRes.data);
         setReservasi(reservasiRes.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Gagal mengambil data:", error);
       }
     };
 
     fetchData();
   }, []);
 
+  // Fungsi untuk mengubah nilai field pada form
   const handleChange = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Fungsi untuk submit data ke server
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -93,10 +101,12 @@ function Registration() {
     };
 
     try {
+      // Kirim data pasien dan reservasi ke server
       await axios.post(`${serverUrl}/pasien`, newPasien);
       await axios.post(`${serverUrl}/reservasi`, newReservasi);
-      console.log("Data successfully added!");
+      console.log("Data berhasil ditambahkan!");
 
+      // Reset form setelah submit
       setFormData({
         nik: "",
         namaLengkap: "",
@@ -112,75 +122,114 @@ function Registration() {
         tipePembayaran: "",
       });
 
-      setStep(1);
+      setStep(1); // Kembali ke langkah pertama
     } catch (error) {
-      console.error("Error inserting data:", error);
+      console.error("Gagal menambahkan data:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {step === 1 && (
-        <>
-          <h3 className="text-lg font-semibold mb-4">Formulir Biodata</h3>
-          <Biodata
-            formData={formData}
-            onChange={handleChange}
-            variables={variables}
-          />
-        </>
-      )}
-      {step === 2 && (
-        <>
-          <h3 className="text-lg font-semibold mb-4">Reservasi</h3>
-          <Reservasi
-            formData={formData}
-            onChange={handleChange}
-            poli={poli}
-            dokter={dokter}
-            variables={variables}
-            reservasi={reservasi}
-          />
-        </>
-      )}
-      {step === 3 && (
-        <>
-          <h3 className="text-lg font-semibold mb-4">Konfirmasi</h3>
-          <Konfirmasi formData={formData} />
-        </>
-      )}
+    <>
+      {/* Stepper untuk menampilkan progress multi-step form */}
+      <div className="flex justify-between items-center mb-6">
+        {["Biodata", "Reservasi", "Konfirmasi"].map((label, index) => {
+          const stepNumber = index + 1;
+          const isActive = step === stepNumber;
+          const isCompleted = step > stepNumber;
 
-      <div className="flex justify-between gap-2.5 my-5">
-        {step > 1 && (
-          <Button
-            text="Back"
-            onClick={() => setStep(step - 1)}
-            type="button"
-            variant="outlined"
-          />
-        )}
-        {step < 3 && (
-          <Button
-            text="Next"
-            onClick={() => setStep(step + 1)}
-            type="button"
-            variant="outlined"
-          />
-        )}
-        {step === 3 && (
-          <Button type="submit" text="Daftar" disabled={!isFormComplete()} />
-        )}
+          return (
+            <div
+              key={index}
+              className="flex gap-4 flex-wrap items-center p-5 rounded-xl bg-zinc-50 shadow shadow-zinc-200"
+            >
+              <span
+                className={`size-8 flex items-center justify-center rounded-full text-zinc-50 ${
+                  isCompleted
+                    ? "bg-zinc-500"
+                    : isActive
+                    ? "bg-blue-500 text-blue-50"
+                    : "bg-zinc-200 text-zinc-500"
+                }`}
+              >
+                {isCompleted ? "✓" : stepNumber}
+              </span>
+              <span>{label}</span>
+            </div>
+          );
+        })}
       </div>
-    </form>
+
+      {/* Form multi-step */}
+      <form onSubmit={handleSubmit}>
+        {/* Step 1: Biodata */}
+        {step === 1 && (
+          <>
+            <h3 className="text-lg font-semibold mb-4">Biodata</h3>
+            <Biodata
+              formData={formData}
+              onChange={handleChange}
+              variables={variables}
+            />
+          </>
+        )}
+        {/* Step 2: Reservasi */}
+        {step === 2 && (
+          <>
+            <h3 className="text-lg font-semibold mb-4">Reservasi</h3>
+            <Reservasi
+              formData={formData}
+              onChange={handleChange}
+              poli={poli}
+              dokter={dokter}
+              variables={variables}
+              reservasi={reservasi}
+            />
+          </>
+        )}
+        {/* Step 3: Konfirmasi */}
+        {step === 3 && (
+          <>
+            <h3 className="text-lg font-semibold mb-4">Konfirmasi</h3>
+            <Konfirmasi formData={formData} poli={poli} dokter={dokter} />
+          </>
+        )}
+
+        {/* Tombol navigasi step dan submit */}
+        <div className="flex flex-col gap-2.5 my-5">
+          {step > 1 && (
+            <Button
+              text="Kembali"
+              onClick={() => setStep(step - 1)}
+              type="button"
+              variant="outlined"
+              color="zinc"
+            />
+          )}
+          {step < 3 && (
+            <Button
+              text="Selanjutnya"
+              onClick={() => setStep(step + 1)}
+              type="button"
+              variant="outlined"
+              color="blue"
+            />
+          )}
+          {step === 3 && (
+            <Button type="submit" text="Daftar" disabled={!isFormComplete()} />
+          )}
+        </div>
+      </form>
+    </>
   );
 }
 
+// Komponen untuk form Biodata pasien
 function Biodata({ formData, onChange, variables }) {
   return (
     <GridX>
       <GridY>
         <Label label="NIK" htmlFor="nik" />
-        <InputText
+        <InputNumber
           placeholder="Nomor KTP"
           htmlFor="nik"
           value={formData.nik}
@@ -256,11 +305,14 @@ function Biodata({ formData, onChange, variables }) {
   );
 }
 
+// Komponen untuk form Reservasi pasien
 function Reservasi({ formData, onChange, poli, dokter, variables, reservasi }) {
+  // Filter dokter berdasarkan poli yang dipilih
   const filteredDokter = dokter.filter((dokter) =>
     dokter.poli.includes(formData.poli)
   );
 
+  // Ambil jam yang sudah terpakai untuk dokter dan tanggal tertentu
   const reservedJam = reservasi
     .filter(
       (r) =>
@@ -269,6 +321,7 @@ function Reservasi({ formData, onChange, poli, dokter, variables, reservasi }) {
     )
     .map((r) => r.jam);
 
+  // Pilihan jam yang tersedia
   const availableJamOptions = variables.jam
     .filter((jam) => !reservedJam.includes(jam))
     .map((jam) => ({
@@ -344,22 +397,39 @@ function Reservasi({ formData, onChange, poli, dokter, variables, reservasi }) {
   );
 }
 
-function Konfirmasi({ formData }) {
-  return (
-    <ul className="space-y-2">
-      {Object.entries(formData).map(([key, value]) => (
-        <li key={key}>
-          <strong>{formatLabel(key)}:</strong> {value}
-        </li>
-      ))}
-    </ul>
-  );
-}
+// Komponen untuk menampilkan data konfirmasi sebelum submit
+function Konfirmasi({ formData, poli, dokter }) {
+  // Fungsi untuk mendapatkan label dari id poli/dokter
+  const getLabel = (value, dataArray, labelKey = "poli") => {
+    if (!dataArray || dataArray.length === 0) return value;
+    const found = dataArray.find((item) => item.id === value);
+    return found ? found[labelKey] : value;
+  };
 
-function formatLabel(label) {
-  return label
-    .replace(/([A-Z])/g, " $1")
-    .replace(/^./, (str) => str.toUpperCase());
+  // Data yang akan ditampilkan pada tabel konfirmasi
+  const data = [
+    { label: "NIK", value: formData.nik },
+    { label: "Nama Lengkap", value: formData.namaLengkap },
+    { label: "Tempat Lahir", value: formData.tempatLahir },
+    { label: "Tanggal Lahir", value: formData.tanggalLahir },
+    { label: "Jenis Kelamin", value: formData.jenisKelamin },
+    { label: "Nomor Telepon", value: formData.nomorTelepon },
+    { label: "Alamat", value: formData.alamat },
+    { label: "Poli", value: getLabel(formData.poli, poli, "poli") },
+    { label: "Dokter", value: getLabel(formData.dokter, dokter, "nama") },
+    { label: "Tanggal Reservasi", value: formData.tanggalReservasi },
+    { label: "Jam", value: formData.jam },
+    { label: "Tipe Pembayaran", value: formData.tipePembayaran },
+  ];
+
+  // Kolom untuk tabel konfirmasi
+  const columns = [
+    { header: "Form", accessor: "label" },
+    { header: "Input", accessor: "value" },
+  ];
+
+  // Tampilkan tabel konfirmasi
+  return <Table columns={columns} data={data} variant="same-width" />;
 }
 
 export default Registration;

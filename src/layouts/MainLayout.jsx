@@ -2,6 +2,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import { FaUserPlus, FaUserDoctor, FaHospitalUser } from "react-icons/fa6";
 import { FaUserFriends, FaClinicMedical } from "react-icons/fa";
 import { RiPrinterFill } from "react-icons/ri";
+import BrandImage from "../assets/Icon.png";
 
 const Main = () => {
   const location = useLocation();
@@ -11,16 +12,16 @@ const Main = () => {
       title: "Layanan",
       items: [
         {
-          to: "/registration",
+          to: "/",
           icon: <FaUserPlus size={24} />,
           label: "Registrasi Online",
         },
-        { to: "/print", icon: <RiPrinterFill size={24} />, label: "Cetak" },
         {
           to: "/reservations",
           icon: <FaUserFriends size={24} />,
           label: "List Reservasi",
         },
+        { to: "/print", icon: <RiPrinterFill size={24} />, label: "Cetak" },
       ],
     },
     {
@@ -47,8 +48,8 @@ const Main = () => {
 
   return (
     <div className="flex">
-      <nav id="navigation" className="p-8 min-h-svh">
-        <img className="w-full" src="https://placehold.co/200x100" alt="" />
+      <nav id="navigation" className="px-4 py-8 min-h-svh">
+        <img className="w-full px-4 mb-4" src={BrandImage} />
         {webPaths.map((section) => (
           <div className="flex flex-col gap-2.5" key={section.title}>
             <h3 className="mb-1 mt-4 ml-4 text-sm text-zinc-400">

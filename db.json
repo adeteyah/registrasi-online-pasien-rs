@@ -60,68 +60,108 @@
         "Poli-3",
         "Poli-4"
       ]
+    },
+    {
+      "id": "Dokter-9",
+      "nama": "Dr. Ika",
+      "poli": [
+        "Poli-6"
+      ]
+    },
+    {
+      "id": "Dokter-10",
+      "nama": "Dr. Joko",
+      "poli": [
+        "Poli-7"
+      ]
+    },
+    {
+      "id": "Dokter-11",
+      "nama": "Dr. Karina",
+      "poli": [
+        "Poli-8",
+        "Poli-1"
+      ]
+    },
+    {
+      "id": "Dokter-12",
+      "nama": "Dr. Leo",
+      "poli": [
+        "Poli-9"
+      ]
+    },
+    {
+      "id": "Dokter-13",
+      "nama": "Dr. Mira",
+      "poli": [
+        "Poli-10",
+        "Poli-3"
+      ]
+    },
+    {
+      "id": "Dokter-14",
+      "nama": "Dr. Nanda",
+      "poli": [
+        "Poli-2"
+      ]
+    },
+    {
+      "id": "Dokter-15",
+      "nama": "Dr. Oka",
+      "poli": [
+        "Poli-4",
+        "Poli-5"
+      ]
+    },
+    {
+      "id": "Dokter-16",
+      "nama": "Dr. Putri",
+      "poli": [
+        "Poli-6"
+      ]
+    },
+    {
+      "id": "Dokter-17",
+      "nama": "Dr. Qori",
+      "poli": [
+        "Poli-7",
+        "Poli-8"
+      ]
+    },
+    {
+      "id": "Dokter-18",
+      "nama": "Dr. Rian",
+      "poli": [
+        "Poli-9",
+        "Poli-10"
+      ]
+    },
+    {
+      "id": "Dokter-19",
+      "nama": "Dr. Sinta",
+      "poli": [
+        "Poli-1",
+        "Poli-9"
+      ]
+    },
+    {
+      "id": "Dokter-20",
+      "nama": "Dr. Tommy",
+      "poli": [
+        "Poli-10"
+      ]
     }
   ],
   "pasien": [
     {
-      "id": "6e77",
-      "nik": "08887222",
-      "namaLengkap": "Kaka",
+      "id": "d0d7",
+      "nik": "390861237816912",
+      "namaLengkap": "Aditiya Rachman",
       "tempatLahir": "Bandung",
-      "tanggalLahir": "2025-05-06",
-      "jenisKelamin": "Pria",
-      "nomorTelepon": "08761526374",
-      "alamat": "Bandung"
-    },
-    {
-      "id": "50f3",
-      "nik": "3387123813257812",
-      "namaLengkap": "Mohammad Aditiya Rachman",
-      "tempatLahir": "Bandung",
-      "tanggalLahir": "2025-05-01",
+      "tanggalLahir": "2001-04-18",
       "jenisKelamin": "Pria",
       "nomorTelepon": "085156012239",
-      "alamat": "Jl Manisi Lio Utara no.72 RT2 RW9 Cipadung Cibiru"
-    },
-    {
-      "id": "6456",
-      "nik": "123123",
-      "namaLengkap": "123123",
-      "tempatLahir": "123123",
-      "tanggalLahir": "2025-05-02",
-      "jenisKelamin": "Pria",
-      "nomorTelepon": "123123123",
-      "alamat": "123123"
-    },
-    {
-      "id": "faff",
-      "nik": "",
-      "namaLengkap": "",
-      "tempatLahir": "",
-      "tanggalLahir": "",
-      "jenisKelamin": "",
-      "nomorTelepon": "",
-      "alamat": ""
-    },
-    {
-      "id": "a660",
-      "nik": "222sssss",
-      "namaLengkap": "123123",
-      "tempatLahir": "123123123",
-      "tanggalLahir": "2025-05-06",
-      "jenisKelamin": "Wanita",
-      "nomorTelepon": "123123",
-      "alamat": "123123"
-    },
-    {
-      "id": "a6ff",
-      "nik": "123123",
-      "namaLengkap": "123123",
-      "tempatLahir": "asd",
-      "tanggalLahir": "2025-05-07",
-      "jenisKelamin": "Pria",
-      "nomorTelepon": "12312123",
-      "alamat": "123123123"
+      "alamat": "Jl Manisi Lio Utara no 72"
     }
   ],
   "poli": [
@@ -144,62 +184,37 @@
     {
       "id": "Poli-5",
       "poli": "Poli THT"
+    },
+    {
+      "id": "Poli-6",
+      "poli": "Poli Kulit dan Kelamin"
+    },
+    {
+      "id": "Poli-7",
+      "poli": "Poli Mata"
+    },
+    {
+      "id": "Poli-8",
+      "poli": "Poli Saraf"
+    },
+    {
+      "id": "Poli-9",
+      "poli": "Poli Jantung"
+    },
+    {
+      "id": "Poli-10",
+      "poli": "Poli Bedah"
     }
   ],
   "reservasi": [
     {
-      "id": "c9fc",
-      "nik": "08887222",
-      "tanggalReservasi": "2025-05-12",
-      "jam": "08:00",
-      "poli": "Poli-2",
-      "dokter": "Dokter-2",
-      "tipePembayaran": "Umum"
-    },
-    {
-      "id": "d8c1",
-      "nik": "3387123813257812",
-      "tanggalReservasi": "2025-05-15",
+      "id": "38f2",
+      "nik": "390861237816912",
+      "tanggalReservasi": "2025-05-14",
       "jam": "08:00",
       "poli": "Poli-1",
       "dokter": "Dokter-1",
-      "tipePembayaran": "Umum"
-    },
-    {
-      "id": "d1fe",
-      "nik": "123123",
-      "tanggalReservasi": "2025-05-13",
-      "jam": "08:00",
-      "poli": "Poli-2",
-      "dokter": "Dokter-2",
-      "tipePembayaran": "Umum"
-    },
-    {
-      "id": "e925",
-      "nik": "",
-      "tanggalReservasi": "2025-05-15",
-      "jam": "08:30",
-      "poli": "Poli-1",
-      "dokter": "Dokter-5",
-      "tipePembayaran": "Umum"
-    },
-    {
-      "id": "d7a0",
-      "nik": "222sssss",
-      "tanggalReservasi": "2025-05-15",
-      "jam": "09:00",
-      "poli": "Poli-1",
-      "dokter": "Dokter-5",
-      "tipePembayaran": "Umum"
-    },
-    {
-      "id": "76c0",
-      "nik": "123123",
-      "tanggalReservasi": "2025-05-14",
-      "jam": "08:30",
-      "poli": "Poli-3",
-      "dokter": "Dokter-6",
-      "tipePembayaran": "Asuransi"
+      "tipePembayaran": "BPJS"
     }
   ],
   "variables": {
@@ -214,7 +229,14 @@
     "tipePembayaran": [
       "Umum",
       "Asuransi",
-      "BPJS"
+      "BPJS",
+      "KIS",
+      "Jasa Raharja",
+      "Asuransi Swasta",
+      "Tunai",
+      "Kartu Kredit",
+      "Debit",
+      "E-Wallet"
     ],
     "jenisKelamin": [
       "Pria",
