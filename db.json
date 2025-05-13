@@ -3,153 +3,102 @@
     {
       "id": "Dokter-1",
       "nama": "Dr. Andi",
-      "poli": [
-        "Poli-1"
-      ]
+      "poli": ["Poli-1"]
     },
     {
       "id": "Dokter-2",
       "nama": "Dr. Budi",
-      "poli": [
-        "Poli-2"
-      ]
+      "poli": ["Poli-2"]
     },
     {
       "id": "Dokter-3",
       "nama": "Dr. Citra",
-      "poli": [
-        "Poli-3",
-        "Poli-4"
-      ]
+      "poli": ["Poli-3", "Poli-4"]
     },
     {
       "id": "Dokter-4",
       "nama": "Dr. Dedi",
-      "poli": [
-        "Poli-5"
-      ]
+      "poli": ["Poli-5"]
     },
     {
       "id": "Dokter-5",
       "nama": "Dr. Eka",
-      "poli": [
-        "Poli-1",
-        "Poli-2"
-      ]
+      "poli": ["Poli-1", "Poli-2"]
     },
     {
       "id": "Dokter-6",
       "nama": "Dr. Fani",
-      "poli": [
-        "Poli-3"
-      ]
+      "poli": ["Poli-3"]
     },
     {
       "id": "Dokter-7",
       "nama": "Dr. Gita",
-      "poli": [
-        "Poli-4",
-        "Poli-5"
-      ]
+      "poli": ["Poli-4", "Poli-5"]
     },
     {
       "id": "Dokter-8",
       "nama": "Dr. Hadi",
-      "poli": [
-        "Poli-1",
-        "Poli-3",
-        "Poli-4"
-      ]
+      "poli": ["Poli-1", "Poli-3", "Poli-4"]
     },
     {
       "id": "Dokter-9",
       "nama": "Dr. Ika",
-      "poli": [
-        "Poli-6"
-      ]
+      "poli": ["Poli-6"]
     },
     {
       "id": "Dokter-10",
       "nama": "Dr. Joko",
-      "poli": [
-        "Poli-7"
-      ]
+      "poli": ["Poli-7"]
     },
     {
       "id": "Dokter-11",
       "nama": "Dr. Karina",
-      "poli": [
-        "Poli-8",
-        "Poli-1"
-      ]
+      "poli": ["Poli-8", "Poli-1"]
     },
     {
       "id": "Dokter-12",
       "nama": "Dr. Leo",
-      "poli": [
-        "Poli-9"
-      ]
+      "poli": ["Poli-9"]
     },
     {
       "id": "Dokter-13",
       "nama": "Dr. Mira",
-      "poli": [
-        "Poli-10",
-        "Poli-3"
-      ]
+      "poli": ["Poli-10", "Poli-3"]
     },
     {
       "id": "Dokter-14",
       "nama": "Dr. Nanda",
-      "poli": [
-        "Poli-2"
-      ]
+      "poli": ["Poli-2"]
     },
     {
       "id": "Dokter-15",
       "nama": "Dr. Oka",
-      "poli": [
-        "Poli-4",
-        "Poli-5"
-      ]
+      "poli": ["Poli-4", "Poli-5"]
     },
     {
       "id": "Dokter-16",
       "nama": "Dr. Putri",
-      "poli": [
-        "Poli-6"
-      ]
+      "poli": ["Poli-6"]
     },
     {
       "id": "Dokter-17",
       "nama": "Dr. Qori",
-      "poli": [
-        "Poli-7",
-        "Poli-8"
-      ]
+      "poli": ["Poli-7", "Poli-8"]
     },
     {
       "id": "Dokter-18",
       "nama": "Dr. Rian",
-      "poli": [
-        "Poli-9",
-        "Poli-10"
-      ]
+      "poli": ["Poli-9", "Poli-10"]
     },
     {
       "id": "Dokter-19",
       "nama": "Dr. Sinta",
-      "poli": [
-        "Poli-1",
-        "Poli-9"
-      ]
+      "poli": ["Poli-1", "Poli-9"]
     },
     {
       "id": "Dokter-20",
       "nama": "Dr. Tommy",
-      "poli": [
-        "Poli-10"
-      ]
+      "poli": ["Poli-10"]
     }
   ],
   "pasien": [
@@ -162,6 +111,206 @@
       "jenisKelamin": "Pria",
       "nomorTelepon": "085156012239",
       "alamat": "Jl Manisi Lio Utara no 72"
+    },
+    {
+      "id": "a123",
+      "nik": "123456789012345",
+      "namaLengkap": "Pasien 1",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1990-01-01",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "081234567890",
+      "alamat": "Jl Contoh Alamat No. 1"
+    },
+    {
+      "id": "b234",
+      "nik": "234567890123456",
+      "namaLengkap": "Pasien 2",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1985-05-12",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "082345678901",
+      "alamat": "Jl Contoh Alamat No. 2"
+    },
+    {
+      "id": "c345",
+      "nik": "345678901234567",
+      "namaLengkap": "Pasien 3",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1978-08-19",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "083456789012",
+      "alamat": "Jl Contoh Alamat No. 3"
+    },
+    {
+      "id": "d456",
+      "nik": "456789012345678",
+      "namaLengkap": "Pasien 4",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1999-03-04",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "084567890123",
+      "alamat": "Jl Contoh Alamat No. 4"
+    },
+    {
+      "id": "e567",
+      "nik": "567890123456789",
+      "namaLengkap": "Pasien 5",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1995-12-25",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "085678901234",
+      "alamat": "Jl Contoh Alamat No. 5"
+    },
+    {
+      "id": "f678",
+      "nik": "678901234567890",
+      "namaLengkap": "Pasien 6",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "2000-07-11",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "086789012345",
+      "alamat": "Jl Contoh Alamat No. 6"
+    },
+    {
+      "id": "g789",
+      "nik": "789012345678901",
+      "namaLengkap": "Pasien 7",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1988-09-14",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "087890123456",
+      "alamat": "Jl Contoh Alamat No. 7"
+    },
+    {
+      "id": "h890",
+      "nik": "890123456789012",
+      "namaLengkap": "Pasien 8",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1992-10-22",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "088901234567",
+      "alamat": "Jl Contoh Alamat No. 8"
+    },
+    {
+      "id": "i901",
+      "nik": "901234567890123",
+      "namaLengkap": "Pasien 9",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1983-06-30",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "089012345678",
+      "alamat": "Jl Contoh Alamat No. 9"
+    },
+    {
+      "id": "j012",
+      "nik": "012345678901234",
+      "namaLengkap": "Pasien 10",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1977-04-07",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "081122233344",
+      "alamat": "Jl Contoh Alamat No. 10"
+    },
+    {
+      "id": "k111",
+      "nik": "112233445566778",
+      "namaLengkap": "Pasien 11",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1991-03-03",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "082233344455",
+      "alamat": "Jl Contoh Alamat No. 11"
+    },
+    {
+      "id": "l222",
+      "nik": "998877665544332",
+      "namaLengkap": "Pasien 12",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1984-01-22",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "083344455566",
+      "alamat": "Jl Contoh Alamat No. 12"
+    },
+    {
+      "id": "m333",
+      "nik": "776655443322110",
+      "namaLengkap": "Pasien 13",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1980-02-20",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "084455566677",
+      "alamat": "Jl Contoh Alamat No. 13"
+    },
+    {
+      "id": "n444",
+      "nik": "665544332211009",
+      "namaLengkap": "Pasien 14",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1986-11-09",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "085566677788",
+      "alamat": "Jl Contoh Alamat No. 14"
+    },
+    {
+      "id": "o555",
+      "nik": "554433221100998",
+      "namaLengkap": "Pasien 15",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1993-09-15",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "086677788899",
+      "alamat": "Jl Contoh Alamat No. 15"
+    },
+    {
+      "id": "p666",
+      "nik": "443322110099887",
+      "namaLengkap": "Pasien 16",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1997-07-18",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "087788899900",
+      "alamat": "Jl Contoh Alamat No. 16"
+    },
+    {
+      "id": "q777",
+      "nik": "332211009988776",
+      "namaLengkap": "Pasien 17",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1982-06-05",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "088899900011",
+      "alamat": "Jl Contoh Alamat No. 17"
+    },
+    {
+      "id": "r888",
+      "nik": "221100998877665",
+      "namaLengkap": "Pasien 18",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1996-12-01",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "089900011122",
+      "alamat": "Jl Contoh Alamat No. 18"
+    },
+    {
+      "id": "s999",
+      "nik": "110099887766554",
+      "namaLengkap": "Pasien 19",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1987-10-10",
+      "jenisKelamin": "Wanita",
+      "nomorTelepon": "081000111222",
+      "alamat": "Jl Contoh Alamat No. 19"
+    },
+    {
+      "id": "t000",
+      "nik": "009988776655443",
+      "namaLengkap": "Pasien 20",
+      "tempatLahir": "Bandung",
+      "tanggalLahir": "1994-05-17",
+      "jenisKelamin": "Pria",
+      "nomorTelepon": "082000111222",
+      "alamat": "Jl Contoh Alamat No. 20"
     }
   ],
   "poli": [
@@ -215,17 +364,91 @@
       "poli": "Poli-1",
       "dokter": "Dokter-1",
       "tipePembayaran": "BPJS"
+    },
+    {
+      "id": "2r51",
+      "nik": "123456789012345",
+      "tanggalReservasi": "2025-05-15",
+      "jam": "08:30",
+      "poli": "Poli-2",
+      "dokter": "Dokter-2",
+      "tipePembayaran": "Umum"
+    },
+    {
+      "id": "r5f2",
+      "nik": "234567890123456",
+      "tanggalReservasi": "2025-05-15",
+      "jam": "09:00",
+      "poli": "Poli-3",
+      "dokter": "Dokter-3",
+      "tipePembayaran": "BPJS"
+    },
+    {
+      "id": "r2c3",
+      "nik": "345678901234567",
+      "tanggalReservasi": "2025-05-16",
+      "jam": "09:30",
+      "poli": "Poli-4",
+      "dokter": "Dokter-4",
+      "tipePembayaran": "KIS"
+    },
+    {
+      "id": "r0s4",
+      "nik": "456789012345678",
+      "tanggalReservasi": "2025-05-17",
+      "jam": "10:00",
+      "poli": "Poli-5",
+      "dokter": "Dokter-5",
+      "tipePembayaran": "Asuransi"
+    },
+    {
+      "id": "rlv5",
+      "nik": "567890123456789",
+      "tanggalReservasi": "2025-05-17",
+      "jam": "10:30",
+      "poli": "Poli-6",
+      "dokter": "Dokter-6",
+      "tipePembayaran": "E-Wallet"
+    },
+    {
+      "id": "ear6",
+      "nik": "678901234567890",
+      "tanggalReservasi": "2025-05-18",
+      "jam": "08:00",
+      "poli": "Poli-7",
+      "dokter": "Dokter-7",
+      "tipePembayaran": "Debit"
+    },
+    {
+      "id": "o3i7",
+      "nik": "789012345678901",
+      "tanggalReservasi": "2025-05-18",
+      "jam": "08:30",
+      "poli": "Poli-8",
+      "dokter": "Dokter-8",
+      "tipePembayaran": "Jasa Raharja"
+    },
+    {
+      "id": "0as8",
+      "nik": "890123456789012",
+      "tanggalReservasi": "2025-05-19",
+      "jam": "09:00",
+      "poli": "Poli-9",
+      "dokter": "Dokter-9",
+      "tipePembayaran": "Asuransi Swasta"
+    },
+    {
+      "id": "mxn9",
+      "nik": "901234567890123",
+      "tanggalReservasi": "2025-05-19",
+      "jam": "09:30",
+      "poli": "Poli-10",
+      "dokter": "Dokter-10",
+      "tipePembayaran": "Tunai"
     }
   ],
   "variables": {
-    "jam": [
-      "08:00",
-      "08:30",
-      "09:00",
-      "09:30",
-      "10:00",
-      "10:30"
-    ],
+    "jam": ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30"],
     "tipePembayaran": [
       "Umum",
       "Asuransi",
@@ -238,10 +461,6 @@
       "Debit",
       "E-Wallet"
     ],
-    "jenisKelamin": [
-      "Pria",
-      "Wanita",
-      "Tidak Bisa Disebutkan"
-    ]
+    "jenisKelamin": ["Pria", "Wanita", "Tidak Bisa Disebutkan"]
   }
 }

@@ -17,7 +17,7 @@ function Reservasi() {
   const [loading, setLoading] = useState(true); // Status loading
   const [search, setSearch] = useState(""); // Kata kunci pencarian
   const [currentPage, setCurrentPage] = useState(1); // Halaman saat ini
-  const itemsPerPage = 2; // Jumlah data per halaman
+  const itemsPerPage = 10; // Jumlah data per halaman
 
   // useEffect untuk mengambil data dari API saat komponen pertama kali dirender
   useEffect(() => {

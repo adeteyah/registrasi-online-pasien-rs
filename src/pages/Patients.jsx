@@ -14,7 +14,7 @@ function Patients() {
   const [search, setSearch] = useState("");
   // State untuk menyimpan halaman aktif
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2; // Batas data per halaman
+  const itemsPerPage = 10; // Batas data per halaman
 
   // Ambil data dari server ketika komponen pertama kali dimuat
   useEffect(() => {

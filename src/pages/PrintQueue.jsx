@@ -12,9 +12,10 @@ function PrintQueue() {
   const [notFound, setNotFound] = useState(false); // Status jika data tidak ditemukan
   const [polis, setPolis] = useState([]); // Data poli
   const [dokters, setDokters] = useState([]); // Data dokter
+  const [patients, setPatients] = useState([]); // Data pasien
   const navigate = useNavigate(); // Hook untuk navigasi
 
-  // Ambil data reservasi, poli, dan dokter
+  // Ambil data reservasi, poli, dokter, dan pasien
   useEffect(() => {
     const fetchReservation = async () => {
       try {
@@ -39,15 +40,17 @@ function PrintQueue() {
       }
     };
 
-    // Ambil data poli dan dokter juga
+    // Ambil data poli, dokter, dan pasien juga
     const fetchMaster = async () => {
       try {
-        const [poliRes, dokterRes] = await Promise.all([
+        const [poliRes, dokterRes, pasienRes] = await Promise.all([
           fetch(`${serverUrl}/poli`).then((res) => res.json()),
           fetch(`${serverUrl}/dokter`).then((res) => res.json()),
+          fetch(`${serverUrl}/pasien`).then((res) => res.json()),
         ]);
         setPolis(poliRes);
         setDokters(dokterRes);
+        setPatients(pasienRes);
       } catch (error) {
         // Jika gagal, biarkan kosong
       }
@@ -62,6 +65,13 @@ function PrintQueue() {
     if (!dataArray || dataArray.length === 0) return value;
     const found = dataArray.find((item) => item.id === value);
     return found ? found[labelKey] : value;
+  };
+
+  // Fungsi untuk mendapatkan nama pasien dari nik
+  const getPatientName = (nik) => {
+    if (!patients || patients.length === 0) return nik;
+    const found = patients.find((item) => item.nik === nik);
+    return found ? found.namaLengkap : nik;
   };
 
   // Fungsi untuk mencetak area tertentu dari halaman
@@ -99,6 +109,9 @@ function PrintQueue() {
         <div id="print-area" className="print-area">
           <p>
             <strong>NIK:</strong> {reservation.nik}
+          </p>
+          <p>
+            <strong>Nama Pasien:</strong> {getPatientName(reservation.nik)}
           </p>
           <p>
             <strong>Tanggal:</strong> {reservation.tanggalReservasi}
